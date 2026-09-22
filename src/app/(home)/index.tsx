@@ -4,7 +4,9 @@ import { Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
-	const handleScheduleNotification = () => {
+	const handleScheduleNotification = async () => {
+		await Notifications.requestPermissionsAsync();
+
 		Notifications.scheduleNotificationAsync({
 			content: {
 				title: 'My first local notification',
@@ -39,8 +41,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
 	container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
