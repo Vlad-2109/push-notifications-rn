@@ -19,15 +19,21 @@ Notifications.setNotificationHandler({
 
 export default function RootLayout() {
 	useEffect(() => {
-		const subscription = Notifications.addNotificationResponseReceivedListener(
-			(response) => {
+		const subscriptionNotificationReceived =
+			Notifications.addNotificationReceivedListener((response) => {
 				console.log('NOTIFICATION RECEIVED');
+				console.log(response.request.content.data?.userName);
+			});
+
+		const subscriptionNotificationResponseReceived =
+			Notifications.addNotificationResponseReceivedListener((response) => {
+				console.log('NOTIFICATION RESPONSE RECEIVED');
 				console.log(response.notification.request.content.data?.userName);
-			},
-		);
+			});
 
 		return () => {
-			subscription.remove();
+			subscriptionNotificationReceived.remove();
+			subscriptionNotificationResponseReceived.remove();
 		};
 	}, []);
 
